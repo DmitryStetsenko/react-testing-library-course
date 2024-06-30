@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import List from "../List";
 import "./App.css";
 import Search from "../Search";
@@ -9,6 +9,11 @@ const data = [
 
 function App() {
   const [search, setSearch] = useState('');
+  const [items, setItems] = useState(data);
+
+  useEffect(() => {
+    setItems(data.filter(item => item.toLowerCase().includes(search.toLowerCase())));
+  }, [search]);
 
   return (
     <div className="App">
@@ -19,7 +24,7 @@ function App() {
       </Search>
       
       <h1>List</h1>
-      <List items={ data }/>
+      <List items={ items }/>
 
     </div>
   );
